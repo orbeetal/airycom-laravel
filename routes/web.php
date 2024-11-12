@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UserController;
+
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +18,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::redirect('/', '/dashboard');
+
+Route::redirect('/admin', '/dashboard');
+
+Route::prefix('dashboard')->group(function () {
+    Route::get('/', fn() => view('dashboard'))->name('dashboard');
+
+    Route::name('dashboard.')->group(function () {
+        Route::resource('/categories', CategoryController::class);
+        Route::resource('/products', ProductController::class);
+        Route::resource('/users', UserController::class);
+    });
+
+})->middleware(['auth', 'verified']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+require __DIR__.'/auth.php';
