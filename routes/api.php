@@ -22,5 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function () {
     Route::get('/products/{id}/photo/{serial?}', [ProductController::class, 'streamPhoto'])->name('product.photo.stream');
 
+    Route::get('{category}/products', [ProductController::class, 'categoryProducts']);
+
     Route::get('/products', [ProductController::class, 'index']);
 });

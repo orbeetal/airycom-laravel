@@ -22,7 +22,7 @@ Route::redirect('/', '/dashboard');
 
 Route::redirect('/admin', '/dashboard');
 
-Route::prefix('dashboard')->group(function () {
+Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', fn() => view('dashboard'))->name('dashboard');
 
     Route::name('dashboard.')->group(function () {
@@ -30,8 +30,7 @@ Route::prefix('dashboard')->group(function () {
         Route::resource('/products', ProductController::class);
         Route::resource('/users', UserController::class);
     });
-
-})->middleware(['auth', 'verified']);
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

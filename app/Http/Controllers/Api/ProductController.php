@@ -20,6 +20,20 @@ class ProductController extends Controller
         return ProductResource::collection($products);
     }
 
+    public function categoryProducts(Request $request, $category)
+    {
+        // return
+        $products = Product::query()
+            ->whereHas('category', function ($query) use ($category) {
+                $query->where('name', $category);
+            })
+            ->skip($request->skip ?? 0)
+            ->take($request->take ?? 10)
+            ->get();
+
+        return ProductResource::collection($products);
+    }
+
     public function streamPhoto($id, $serial = 0)
     {
         // return
