@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\EquipmentController;
 use App\Http\Controllers\Admin\UserController;
 
 use App\Http\Controllers\ProfileController;
@@ -29,7 +29,7 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::name('dashboard.')->group(function () {
         Route::resource('/categories', CategoryController::class);
         Route::resource('/products', ProductController::class);
-        Route::resource('/services', ServiceController::class);
+        Route::resource('/equipments', EquipmentController::class);
         Route::resource('/users', UserController::class);
     });
 });

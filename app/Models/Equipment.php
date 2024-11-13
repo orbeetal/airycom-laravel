@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Service extends Model
+class Equipment extends Model
 {
     use HasFactory, HasAuthor, HasHistories;
+
+    protected $table = 'equipments';
 
     protected $guarded = [];
 

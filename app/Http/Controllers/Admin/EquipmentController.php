@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\Service;
+use App\Models\Equipment;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Intervention\Image\Laravel\Facades\Image;
 
-class ServiceController extends Controller
+class EquipmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,12 +17,12 @@ class ServiceController extends Controller
     public function index()
     {
         // return
-        $services = Service::query()
+        $equipments = Equipment::query()
             ->with('category')
             ->latest()
             ->paginate();
 
-        return view("admin.services.index", compact('services'));
+        return view("admin.equipments.index", compact('equipments'));
     }
 
     /**
@@ -30,7 +30,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        $service = new Service();
+        $equipment = new Equipment();
 
         // return
         $categories = Category::query()
@@ -39,8 +39,8 @@ class ServiceController extends Controller
                 'name'
             ]);
 
-        return view("admin.services.create", compact(
-            'service',
+        return view("admin.equipments.create", compact(
+            'equipment',
             'categories',
         ));
     }
@@ -52,35 +52,35 @@ class ServiceController extends Controller
     {
         // return $request;
 
-        $service = Service::create(
+        $equipment = Equipment::create(
             $this->getValidatedData($request)
             + $this->getPhotoData($request)
             + $this->getSpecificationData($request)
         );
 
-        return to_route('dashboard.services.show', $service->id);
+        return to_route('dashboard.equipments.show', $equipment->id);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Service $service)
+    public function show(Equipment $equipment)
     {
-        return to_route('dashboard.services.index', [
-            'service' => $service->id, 
+        return to_route('dashboard.equipments.index', [
+            'equipment' => $equipment->id, 
         ]);
 
-        // return $service;
+        // return $equipment;
 
-        return view('admin.services.show', compact('service'));
+        return view('admin.equipments.show', compact('equipment'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Service $service)
+    public function edit(Equipment $equipment)
     {
-        // return $service;
+        // return $equipment;
 
         // return
         $categories = Category::query()
@@ -89,8 +89,8 @@ class ServiceController extends Controller
                 'name'
             ]);
 
-        return view("admin.services.edit", compact(
-            'service',
+        return view("admin.equipments.edit", compact(
+            'equipment',
             'categories',
         ));
     }
@@ -98,27 +98,27 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request, Equipment $equipment)
     {
         // return $request;
 
-        $service->update(
-            $this->getValidatedData($request, $service->id) 
-            + $this->getPhotoData($request, $service->photos)
-            + $this->getSpecificationData($request, $service->specifications)
+        $equipment->update(
+            $this->getValidatedData($request, $equipment->id) 
+            + $this->getPhotoData($request, $equipment->photos)
+            + $this->getSpecificationData($request, $equipment->specifications)
         );
 
-        return to_route('dashboard.services.show', $service->id);
+        return to_route('dashboard.equipments.show', $equipment->id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Service $service)
+    public function destroy(Equipment $equipment)
     {
-        return $service;
+        return $equipment;
 
-        return to_route('dashboard.services.index');
+        return to_route('dashboard.equipments.index');
     }
 
     protected function getValidatedData($request, $id = '')
@@ -127,7 +127,7 @@ class ServiceController extends Controller
             "name" => "required|string",
             "slug" => [
                 'required',
-                Rule::unique('services')->ignore($id),
+                Rule::unique('equipments')->ignore($id),
             ],
             "price" => "",
             "category_id" => "required|exists:App\Models\Category,id",

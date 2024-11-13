@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\EquipmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,8 +26,8 @@ Route::prefix('v1')->group(function () {
     Route::get('/{category}/products', [ProductController::class, 'categoryProducts']);
     Route::get('/products/{id}/photos/{serial?}.jpeg', [ProductController::class, 'streamPhoto'])->name('product.photo.stream');
     
-    Route::get('/services', [ServiceController::class, 'index']);
-    Route::get('/latest/services', [ServiceController::class, 'latestServices']);
-    Route::get('/{category}/services', [ServiceController::class, 'categoryServices']);
-    Route::get('/services/{id}/photos/{serial?}.jpeg', [ServiceController::class, 'streamPhoto'])->name('service.photo.stream');
+    Route::get('/equipments', [EquipmentController::class, 'index']);
+    Route::get('/latest/equipments', [EquipmentController::class, 'latestEquipments']);
+    Route::get('/{category}/equipments', [EquipmentController::class, 'categoryEquipments']);
+    Route::get('/equipments/{id}/photos/{serial?}.jpeg', [EquipmentController::class, 'streamPhoto'])->name('equipment.photo.stream');
 });
