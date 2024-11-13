@@ -21,15 +21,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
-    Route::get('/products/{id}/photo/{serial?}', [ProductController::class, 'streamPhoto'])->name('product.photo.stream');
-
-    Route::get('{category}/products', [ProductController::class, 'categoryProducts']);
-
     Route::get('/products', [ProductController::class, 'index']);
-
-    Route::get('/services/{id}/photo/{serial?}', [ServiceController::class, 'streamPhoto'])->name('service.photo.stream');
-
-    Route::get('{category}/services', [ServiceController::class, 'categoryServices']);
-
+    Route::get('/latest/products', [ProductController::class, 'latestProducts']);
+    Route::get('/{category}/products', [ProductController::class, 'categoryProducts']);
+    Route::get('/products/{id}/photos/{serial?}.jpeg', [ProductController::class, 'streamPhoto'])->name('product.photo.stream');
+    
     Route::get('/services', [ServiceController::class, 'index']);
+    Route::get('/latest/services', [ServiceController::class, 'latestServices']);
+    Route::get('/{category}/services', [ServiceController::class, 'categoryServices']);
+    Route::get('/services/{id}/photos/{serial?}.jpeg', [ServiceController::class, 'streamPhoto'])->name('service.photo.stream');
 });

@@ -18,7 +18,7 @@ class ServiceResource extends JsonResource
             "id"            => $this->id,
             "slug"          => $this->slug,
             "name"          => $this->name,
-            "photo"         => route('service.photo.stream', ['id' => $this->id]),
+            "photo"         => route('service.photo.stream', [$this->id, 1]),
             "description"   => $this->description ?? "",
             "price"         => $this->price ?? "",
         ];
