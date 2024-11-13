@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ServiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,10 @@ Route::prefix('v1')->group(function () {
     Route::get('{category}/products', [ProductController::class, 'categoryProducts']);
 
     Route::get('/products', [ProductController::class, 'index']);
+
+    Route::get('/services/{id}/photo/{serial?}', [ServiceController::class, 'streamPhoto'])->name('service.photo.stream');
+
+    Route::get('{category}/services', [ServiceController::class, 'categoryServices']);
+
+    Route::get('/services', [ServiceController::class, 'index']);
 });
