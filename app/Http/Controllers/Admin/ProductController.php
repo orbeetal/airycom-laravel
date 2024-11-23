@@ -102,11 +102,15 @@ class ProductController extends Controller
     {
         // return $request;
 
+        // return $this->getValidatedData($request, $product->id);
+
         $product->update(
             $this->getValidatedData($request, $product->id) 
             + $this->getPhotoData($request, $product->photos)
             + $this->getSpecificationData($request, $product->specifications)
         );
+
+        // return $product;
 
         return to_route('dashboard.products.show', $product->id);
     }
@@ -132,6 +136,7 @@ class ProductController extends Controller
             "price" => "",
             "category_id" => "required|exists:App\Models\Category,id",
             "description" => "",
+            "body" => "",
         ]);
     }
 

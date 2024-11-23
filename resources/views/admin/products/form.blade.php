@@ -33,18 +33,9 @@
         @enderror
     </div>
 
-    <!-- Price -->
-    {{-- <div class="col-span-6">
-        <label for="price" class="block text-sm font-medium text-gray-700">Price (optional)</label>
-        <input value="{{ old('price') ?? $product->price }}" type="number" id="price" name="price" class="mt-1 p-2 w-full border border-gray-300 rounded-md">
-        @error('price')
-        <div class="text-red-500 mt-1">{{ $message }}</div>
-        @enderror
-    </div> --}}
-
     <!-- Description -->
     <div class="col-span-full">
-        <label for="country" class="block text-sm font-medium text-gray-700">Description</label>
+        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
         <textarea name="description" class="w-full min-h-40 rounded-lg">{{ $product->description }}</textarea>
         @error('description')
         <div class="text-red-500 mt-1">{{ $message }}</div>
@@ -59,22 +50,19 @@
             <img id="preview1" src="{{ $product->photos[0] ?? '' }}" alt="Photo 1" class="w-full aspect-square object-contain" />
             <input name="photos[]" id="imgInput1" onchange="previewImage(event, 'preview1')" class="hidden" type="file" accept="image/*" />
         </label>
-        {{-- <label for="imgInput2" class="border rounded w-full aspect-square cursor-pointer">
-            <img id="preview2" src="{{ $product->photos[1] ?? '' }}" alt="Photo 2" class="w-full aspect-square object-contain" />
-            <input name="photos[]" id="imgInput2" onchange="previewImage(event, 'preview2')" class="hidden" type="file" accept="image/*" />
-        </label>
-        <label for="imgInput3" class="border rounded w-full aspect-square cursor-pointer">
-            <img id="preview3" src="{{ $product->photos[2] ?? '' }}" alt="Photo 3" class="w-full aspect-square object-contain" />
-            <input name="photos[]" id="imgInput3" onchange="previewImage(event, 'preview3')" class="hidden" type="file" accept="image/*" />
-        </label>
-        <label for="imgInput4" class="border rounded w-full aspect-square cursor-pointer">
-            <img id="preview4" src="{{ $product->photos[3] ?? '' }}" alt="Photo 4" class="w-full aspect-square object-contain" />
-            <input name="photos[]" id="imgInput4" onchange="previewImage(event, 'preview4')" class="hidden" type="file" accept="image/*" />
-        </label> --}}
     </div>
     @error('photos')
     <div class="text-red-500 mt-1">{{ $message }}</div>
     @enderror
+
+    <!-- Body -->
+    <div class="col-span-full">
+        <label for="body" class="block text-sm font-medium text-gray-700">Details</label>
+        <x-text-editor name="body" :value="$product->body" />
+        @error('body')
+        <div class="text-red-500 mt-1">{{ $message }}</div>
+        @enderror
+    </div>
 </div>
 
 <script>
@@ -87,4 +75,5 @@
         }
         reader.readAsDataURL(event.target.files[0]);
     }
+
 </script>
