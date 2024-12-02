@@ -12,13 +12,25 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        // return
-        $products = Product::query()
-            ->skip($request->skip ?? 0)
-            ->take($request->take ?? 10)
-            ->get();
+        $skip = (int) ($request->skip ?? 0);
+        $take = (int) ($request->take ?? 10);
 
-        return ProductResource::collection($products);
+        $total = Product::count();
+
+        if($total > 0) {
+            // return
+            $products = Product::query()
+                ->skip($skip)
+                ->take($take)
+                ->get();
+        }
+
+        return [
+            'total'     => $total,
+            'skip'      => $skip,
+            'take'      => $take,
+            'products'  => $total ? ProductResource::collection($products) : [],
+        ];
     }
 
     public function latestProducts(Request $request)
@@ -40,16 +52,32 @@ class ProductController extends Controller
 
     public function categoryProducts(Request $request, $category)
     {
-        // return
-        $products = Product::query()
+        $skip = (int) ($request->skip ?? 0);
+        $take = (int) ($request->take ?? 10);
+
+        $total = Product::query()
             ->whereHas('category', function ($query) use ($category) {
                 $query->where('name', $category);
             })
-            ->skip($request->skip ?? 0)
-            ->take($request->take ?? 10)
-            ->get();
+            ->count();
 
-        return ProductResource::collection($products);
+        if($total > 0) {
+            // return
+            $products = Product::query()
+                ->whereHas('category', function ($query) use ($category) {
+                    $query->where('name', $category);
+                })
+                ->skip($skip)
+                ->take($take)
+                ->get();
+        }
+
+        return [
+            'total'     => $total,
+            'skip'      => $skip,
+            'take'      => $take,
+            'products'  => $total ? ProductResource::collection($products) : [],
+        ];
     }
 
     public function streamPhoto($id, $serial = 1)
