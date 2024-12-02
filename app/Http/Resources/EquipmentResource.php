@@ -20,7 +20,7 @@ class EquipmentResource extends JsonResource
             "name"          => $this->name,
             "photo"         => route('equipment.photo.stream', [$this->id, 1]),
             "description"   => $this->description ?? "",
-            "price"         => $this->price ?? "",
+            // "price"         => $this->price ?? "",
         ];
     }
 }

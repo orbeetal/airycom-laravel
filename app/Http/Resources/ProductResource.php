@@ -21,7 +21,7 @@ class ProductResource extends JsonResource
             "photo"         => route('product.photo.stream', [$this->id, 1]),
             "description"   => $this->description ?? "",
             "body"          => $this->body ?? "",
-            "price"         => $this->price ?? "",
+            // "price"         => $this->price ?? "",
         ];
     }
 }

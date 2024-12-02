@@ -12,13 +12,27 @@ class EquipmentController extends Controller
 {
     public function index(Request $request)
     {
-        // return
-        $equipments = Equipment::query()
-            ->skip($request->skip ?? 0)
-            ->take($request->take ?? 10)
-            ->get();
+        $skip = (int) ($request->skip ?? 0);
+        $take = (int) ($request->take ?? 10);
 
-        return EquipmentResource::collection($equipments);
+        $total = Equipment::count();
+
+        if($total > 0) {
+            // return
+            $equipments = Equipment::query()
+                ->skip($skip)
+                ->take($take)
+                ->get();
+        }
+
+        return [
+            'total'         => $total,
+            'skip'          => $skip,
+            'take'          => $take,
+            'equipments'    => $total 
+                ? EquipmentResource::collection($equipments) 
+                : [],
+        ];
     }
 
     public function latestEquipments(Request $request)
@@ -40,16 +54,32 @@ class EquipmentController extends Controller
 
     public function categoryEquipments(Request $request, $category)
     {
-        // return
-        $equipments = Equipment::query()
+        $skip = (int) ($request->skip ?? 0);
+        $take = (int) ($request->take ?? 10);
+
+        $total = Equipment::query()
             ->whereHas('category', function ($query) use ($category) {
                 $query->where('name', $category);
             })
-            ->skip($request->skip ?? 0)
-            ->take($request->take ?? 10)
-            ->get();
+            ->count();
 
-        return EquipmentResource::collection($equipments);
+        if($total > 0) {
+            // return
+            $equipments = Equipment::query()
+                ->whereHas('category', function ($query) use ($category) {
+                    $query->where('name', $category);
+                })
+                ->skip($skip)
+                ->take($take)
+                ->get();
+        }
+
+        return [
+            'total'         => $total,
+            'skip'          => $skip,
+            'take'          => $take,
+            'equipments'    => $total ? EquipmentResource::collection($equipments) : [],
+        ];
     }
 
     public function streamPhoto($id, $serial = 1)
