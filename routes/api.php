@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\EquipmentController;
 use App\Http\Controllers\Api\GalleryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
+    Route::get('/', function () {
+        $endpoints = [];
+
+        foreach(Route::getRoutes() as $route) {
+            $ignore_routes = [
+                'product.photo.stream',
+                'equipment.photo.stream',
+            ];
+
+            if(
+                Str::startsWith($route->uri, 'api/v1/')
+                && !in_array($route->getName(), $ignore_routes)
+            ) {
+                $formattedUri = preg_replace('/\{(\w+)\}/', ':$1', $route->uri);
+
+                $endpoints[] = [
+                    'api_url' => url($formattedUri),
+                    'method' => $route->methods[0],
+                ];
+            }
+        }
+
+        return response()->json([
+            'endpoints' => $endpoints,
+        ]);
+    });
+
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/products/{slug}', [ProductController::class, 'show']);
     Route::get('/latest/products', [ProductController::class, 'latestProducts']);
