@@ -25,7 +25,7 @@
     </div>
 
     <!-- Contenteditable Area -->
-    <div x-ref="editor" @input="updateInput()" contenteditable="true" class="border border-gray-300 p-4 rounded-b-md min-h-[120px]"></div>
+    <div x-ref="editor" @input="updateInput()" contenteditable="true" class="border border-gray-300 p-4 rounded-b-md min-h-[240px]"></div>
 
     <!-- Hidden Input -->
     <input type="hidden" name="{{ $name }}" :value="content">

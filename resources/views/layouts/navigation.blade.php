@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('dashboard.equipments.index')" :active="request()->routeIs('dashboard.equipments.*')">
                         {{ __('Equipments') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('dashboard.blogs.index')" :active="request()->routeIs('dashboard.blogs.*')">
+                        {{ __('Blog') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -81,6 +84,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('dashboard.equipments.index')" :active="request()->routeIs('dashboard.equipments.*')">
                 {{ __('Equipments') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('dashboard.blogs.index')" :active="request()->routeIs('dashboard.blogs.*')">
+                {{ __('Blog') }}
             </x-responsive-nav-link>
         </div>
 
