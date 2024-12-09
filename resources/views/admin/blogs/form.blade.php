@@ -110,7 +110,7 @@
             Published Date
         </label>
         <input
-            value="{{ old('published_at') ?? $blog->published_at->format('Y-m-d') }}"
+            value="{{ old('published_at') ?? $blog->published_at?->format('Y-m-d') }}"
             type="date"
             id="published_at"
             name="published_at"
