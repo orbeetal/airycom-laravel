@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\ProductResource;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +22,15 @@ class ProductController extends Controller
         if($total > 0) {
             // return
             $products = Product::query()
+                ->select([
+                    'id', 
+                    'slug',
+                    'name',
+                    'category_id',
+                    'photos',
+                    'description',
+                ])
+                ->with('category')
                 ->skip($skip)
                 ->take($take)
                 ->get();
@@ -46,6 +57,14 @@ class ProductController extends Controller
     {
         // return
         $latestProducts = Product::query()
+            ->select([
+                'products.id', 
+                'products.slug',
+                'products.name',
+                'products.category_id',
+                'products.photos',
+                'products.description',
+            ])
             ->with('category')
             ->join(
                 DB::raw('(SELECT category_id, MAX(created_at) as latest_created_at FROM products GROUP BY category_id) as latest'),
@@ -61,23 +80,40 @@ class ProductController extends Controller
         return ProductResource::collection($latestProducts);
     }
 
-    public function categoryProducts(Request $request, $category)
+    public function categoryProducts(Request $request, $category_slug)
     {
         $skip = (int) ($request->skip ?? 0);
         $take = (int) ($request->take ?? 10);
 
-        $total = Product::query()
-            ->whereHas('category', function ($query) use ($category) {
-                $query->where('name', $category);
-            })
-            ->count();
+        $category = Category::query()
+            ->where('slug', $category_slug)
+            ->first();
+
+        if(!$category) {
+            return [
+                'total'     => 0,
+                'skip'      => $skip,
+                'take'      => $take,
+                'category'  => (object) [],
+                'products'  => (array) [],
+            ];
+        }
+
+        $query = Product::query()
+            ->where('category_id', $category->id);
+
+        $total = $query->count();
 
         if($total > 0) {
             // return
-            $products = Product::query()
-                ->whereHas('category', function ($query) use ($category) {
-                    $query->where('name', $category);
-                })
+            $products = $query
+                ->select([
+                    'id', 
+                    'slug',
+                    'name',
+                    'photos',
+                    'description',
+                ])
                 ->skip($skip)
                 ->take($take)
                 ->get();
@@ -87,6 +123,7 @@ class ProductController extends Controller
             'total'     => $total,
             'skip'      => $skip,
             'take'      => $take,
+            'category'  => CategoryResource::make($category),
             'products'  => $total ? ProductResource::collection($products) : [],
         ];
     }

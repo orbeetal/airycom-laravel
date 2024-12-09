@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\EquipmentResource;
+use App\Models\Category;
 use App\Models\Equipment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,18 +22,25 @@ class EquipmentController extends Controller
         if($total > 0) {
             // return
             $equipments = Equipment::query()
+                ->select([
+                    'id', 
+                    'slug',
+                    'name',
+                    'category_id',
+                    'photos',
+                    'description',
+                ])
+                ->with('category')
                 ->skip($skip)
                 ->take($take)
                 ->get();
         }
 
         return [
-            'total'         => $total,
-            'skip'          => $skip,
-            'take'          => $take,
-            'equipments'    => $total 
-                ? EquipmentResource::collection($equipments) 
-                : [],
+            'total'     => $total,
+            'skip'      => $skip,
+            'take'      => $take,
+            'equipments'  => $total ? EquipmentResource::collection($equipments) : [],
         ];
     }    
     
@@ -46,13 +55,22 @@ class EquipmentController extends Controller
 
     public function latestEquipments(Request $request)
     {
+        // return
         $latestEquipments = Equipment::query()
+            ->select([
+                'equipments.id', 
+                'equipments.slug',
+                'equipments.name',
+                'equipments.category_id',
+                'equipments.photos',
+                'equipments.description',
+            ])
             ->with('category')
             ->join(
                 DB::raw('(SELECT category_id, MAX(created_at) as latest_created_at FROM equipments GROUP BY category_id) as latest'),
                 function ($join) {
                     $join->on('equipments.category_id', '=', 'latest.category_id')
-                         ->on('equipments.created_at', '=', 'latest.latest_created_at');
+                        ->on('equipments.created_at', '=', 'latest.latest_created_at');
                 }
             )
             ->skip($request->skip ?? 0)
@@ -62,33 +80,51 @@ class EquipmentController extends Controller
         return EquipmentResource::collection($latestEquipments);
     }
 
-    public function categoryEquipments(Request $request, $category)
+    public function categoryEquipments(Request $request, $category_slug)
     {
         $skip = (int) ($request->skip ?? 0);
         $take = (int) ($request->take ?? 10);
 
-        $total = Equipment::query()
-            ->whereHas('category', function ($query) use ($category) {
-                $query->where('name', $category);
-            })
-            ->count();
+        $category = Category::query()
+            ->where('slug', $category_slug)
+            ->first();
+
+        if(!$category) {
+            return [
+                'total'     => 0,
+                'skip'      => $skip,
+                'take'      => $take,
+                'category'  => (object) [],
+                'equipments'  => (array) [],
+            ];
+        }
+
+        $query = Equipment::query()
+            ->where('category_id', $category->id);
+
+        $total = $query->count();
 
         if($total > 0) {
             // return
-            $equipments = Equipment::query()
-                ->whereHas('category', function ($query) use ($category) {
-                    $query->where('name', $category);
-                })
+            $equipments = $query
+                ->select([
+                    'id', 
+                    'slug',
+                    'name',
+                    'photos',
+                    'description',
+                ])
                 ->skip($skip)
                 ->take($take)
                 ->get();
         }
 
         return [
-            'total'         => $total,
-            'skip'          => $skip,
-            'take'          => $take,
-            'equipments'    => $total ? EquipmentResource::collection($equipments) : [],
+            'total'     => $total,
+            'skip'      => $skip,
+            'take'      => $take,
+            'category'  => CategoryResource::make($category),
+            'equipments'  => $total ? EquipmentResource::collection($equipments) : [],
         ];
     }
 
