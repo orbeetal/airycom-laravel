@@ -37,7 +37,8 @@ class EquipmentController extends Controller
 
     public function latestEquipments(Request $request)
     {
-        $latestEquipments = Equipment::select('equipments.*')
+        $latestEquipments = Equipment::query()
+            ->with('category')
             ->join(
                 DB::raw('(SELECT category_id, MAX(created_at) as latest_created_at FROM equipments GROUP BY category_id) as latest'),
                 function ($join) {

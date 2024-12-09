@@ -35,12 +35,14 @@ class ProductController extends Controller
 
     public function latestProducts(Request $request)
     {
-        $latestProducts = Product::select('products.*')
+        // return
+        $latestProducts = Product::query()
+            ->with('category')
             ->join(
                 DB::raw('(SELECT category_id, MAX(created_at) as latest_created_at FROM products GROUP BY category_id) as latest'),
                 function ($join) {
                     $join->on('products.category_id', '=', 'latest.category_id')
-                         ->on('products.created_at', '=', 'latest.latest_created_at');
+                        ->on('products.created_at', '=', 'latest.latest_created_at');
                 }
             )
             ->skip($request->skip ?? 0)

@@ -21,6 +21,7 @@ class EquipmentResource extends JsonResource
             "photo"         => route('equipment.photo.stream', [$this->id, 1]),
             "description"   => $this->description ?? "",
             // "price"         => $this->price ?? "",
+            "category"      => $this->whenLoaded('category', fn() => CategoryResource::make($this->category)),
         ];
     }
 }
