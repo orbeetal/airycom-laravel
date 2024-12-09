@@ -33,6 +33,15 @@ class EquipmentController extends Controller
                 ? EquipmentResource::collection($equipments) 
                 : [],
         ];
+    }    
+    
+    public function show($slug)
+    {
+        $equipment = Equipment::query()
+            ->where('slug', $slug)
+            ->first();
+
+        return $equipment ? EquipmentResource::make($equipment) : (object) [];
     }
 
     public function latestEquipments(Request $request)

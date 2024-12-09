@@ -33,6 +33,15 @@ class ProductController extends Controller
         ];
     }
 
+    public function show($slug)
+    {
+        $product = Product::query()
+            ->where('slug', $slug)
+            ->first();
+
+        return $product ? ProductResource::make($product) : (object) [];
+    }
+
     public function latestProducts(Request $request)
     {
         // return
