@@ -22,7 +22,8 @@ class BlogController extends Controller
                 'published_at',
             ])
             ->active()
-            ->published();
+            ->published()
+            ->orderBy('published_at', 'desc');
 
         $total = $query->count();
 
