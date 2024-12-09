@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\EquipmentController;
 use App\Http\Controllers\Api\GalleryController;
+use App\Http\Controllers\Api\SettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -68,4 +69,6 @@ Route::prefix('v1')->group(function () {
     Route::get('/blogs/{slug}', [BlogController::class, 'show']);
 
     Route::get('/gallery', [GalleryController::class, 'index']);
+
+    Route::get('/settings', [SettingController::class, 'index']);
 });
