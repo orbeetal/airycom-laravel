@@ -80,6 +80,32 @@ class ProductController extends Controller
         return ProductResource::collection($latestProducts);
     }
 
+    public function randomProducts()
+    {
+        $products = Product::query()
+            ->with('category')
+            ->select([
+                'id', 
+                'slug',
+                'name',
+                'photos',
+                'description',
+                'category_id',
+            ])
+            ->inRandomOrder()
+            ->take(10)
+            ->get();
+
+        return response()->json($products ? ProductResource::collection($products) : []);
+
+        return [
+            'total'     => $total,
+            'skip'      => $skip,
+            'take'      => $take,
+            'products'  => $total ? ProductResource::collection($products) : [],
+        ];
+    }
+
     public function categoryProducts(Request $request, $category_slug)
     {
         $skip = (int) ($request->skip ?? 0);

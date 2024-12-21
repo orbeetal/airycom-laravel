@@ -55,6 +55,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/products/{slug}', [ProductController::class, 'show']);
     Route::get('/latest/products', [ProductController::class, 'latestProducts']);
+    Route::get('/random/products', [ProductController::class, 'randomProducts']);
     Route::get('/{category}/products', [ProductController::class, 'categoryProducts']);
     Route::get('/products/{id}/photos/{serial?}.jpeg', [ProductController::class, 'streamPhoto'])->name('product.photo.stream');
     
