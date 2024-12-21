@@ -26,7 +26,7 @@
                     <span class="md:text-xl lg:text-2xl">Products</span>
                 </a>
             </div>
-            <div class="bg-white overflow-hidden shadow-sm rounded-lg">
+            <!-- <div class="bg-white overflow-hidden shadow-sm rounded-lg">
                 <a href="/dashboard/equipments" class="flex flex-col justify-center gap-4 items-center p-6 text-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 md:size-10 lg:size-16 text-brand-primary">
                         <path d="M11.644 1.59a.75.75 0 0 1 .712 0l9.75 5.25a.75.75 0 0 1 0 1.32l-9.75 5.25a.75.75 0 0 1-.712 0l-9.75-5.25a.75.75 0 0 1 0-1.32l9.75-5.25Z" />
@@ -35,7 +35,7 @@
                     </svg>
                     <span class="md:text-xl lg:text-2xl">Equipments</span>
                 </a>
-            </div>
+            </div> -->
             <div class="bg-white overflow-hidden shadow-sm rounded-lg">
                 <a href="/dashboard/blogs" class="flex flex-col justify-center gap-4 items-center p-6 text-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 md:size-10 lg:size-16 text-brand-primary">
