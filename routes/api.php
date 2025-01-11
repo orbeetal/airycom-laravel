@@ -52,6 +52,8 @@ Route::prefix('v1')->group(function () {
         ]);
     });
 
+    Route::get('/search/{text}', [ProductController::class, 'search']);
+
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/products/{slug}', [ProductController::class, 'show']);
     Route::get('/latest/products', [ProductController::class, 'latestProducts']);

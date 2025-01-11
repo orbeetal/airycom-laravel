@@ -12,6 +12,87 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    public function search($text)
+    {
+        $skip = (int) ($request->skip ?? 0);
+        $take = (int) ($request->take ?? 10);
+
+        $query = Product::query()
+            ->where(function ($query) use ($text) {
+                $query->where('slug', 'like', "%{$text}%")
+                    ->orWhere('name', 'like', "%{$text}%");
+            });
+
+        $total = $query->count();
+
+        if($total > 0) {
+            // return
+            $products = $query
+                ->select([
+                    'id', 
+                    'slug',
+                    'name',
+                    'category_id',
+                    'photos',
+                    'description',
+                ])
+                ->with('category')
+                ->skip($skip)
+                ->take($take)
+                ->get();
+        }
+
+        return [
+            'total'     => $total,
+            'skip'      => $skip,
+            'take'      => $take,
+            'products'  => $total ? ProductResource::collection($products) : [],
+        ];
+    }
+
+    public function advanceSearch($text)
+    {
+        $skip = (int) ($request->skip ?? 0);
+        $take = (int) ($request->take ?? 10);
+
+        // Primary query: search by slug and name
+        $primaryQuery = Product::query()
+            ->where(function ($query) use ($text) {
+                $query->where('slug', 'like', "%{$text}%")
+                    ->orWhere('name', 'like', "%{$text}%");
+            });
+
+        // Secondary query: search by description
+        $fallbackQuery = Product::query()
+            ->where('description', 'like', "%{$text}%")
+            ->whereNotIn('id', $primaryQuery->pluck('id')); // Exclude already matched IDs
+
+        // Combine the results
+        $primaryResults = $primaryQuery
+            ->select(['id', 'slug', 'name', 'category_id', 'photos', 'description'])
+            ->with('category')
+            ->get();
+
+        $fallbackResults = $fallbackQuery
+            ->select(['id', 'slug', 'name', 'category_id', 'photos', 'description'])
+            ->with('category')
+            ->get();
+
+        // Merge the primary and fallback results
+        $mergedResults = $primaryResults->merge($fallbackResults);
+
+        // Paginate the combined results
+        $total = $mergedResults->count();
+        $products = $mergedResults->slice($skip, $take);
+
+        return [
+            'total'     => $total,
+            'skip'      => $skip,
+            'take'      => $take,
+            'products'  => ProductResource::collection($products),
+        ];
+    }
+
     public function index(Request $request)
     {
         $skip = (int) ($request->skip ?? 0);
