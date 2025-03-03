@@ -32,5 +32,17 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <script>
+            function previewImage(event, imagePreviewId) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    const output = document.getElementById(imagePreviewId);
+                    output.src = reader.result;
+                    output.classList.add('border-2', 'border-sky-700');
+                }
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        </script>
     </body>
 </html>

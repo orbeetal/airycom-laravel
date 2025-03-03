@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\EquipmentController;
@@ -72,6 +73,13 @@ Route::prefix('v1')->group(function () {
     Route::get('/blogs/{slug}', [BlogController::class, 'show']);
 
     Route::get('/gallery', [GalleryController::class, 'index']);
+
+    Route::get('/pages', fn () => response()->json(\App\Models\Banner::PAGES));
+
+    Route::get('/pages/{page}/banners', [BannerController::class, 'index']);
+
+    Route::get('/banners/{id}/image.webp', [BannerController::class, 'streamImage'])
+        ->name('banners.streamImage');
 
     Route::get('/settings', [SettingController::class, 'index']);
 });

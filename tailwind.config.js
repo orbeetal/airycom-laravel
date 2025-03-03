@@ -20,6 +20,9 @@ export default {
                     secondary: "#B7601B",
                 },
             },
+            container: {
+                center: true,
+            },
         },
     },
 

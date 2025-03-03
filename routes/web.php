@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
@@ -37,6 +38,7 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
         Route::resource('/equipments', EquipmentController::class);
         Route::resource('/users', UserController::class);
         Route::resource('/blogs', BlogController::class);
+        Route::resource('/banners', BannerController::class);
     });
 });
 
