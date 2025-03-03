@@ -14,11 +14,11 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="container mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-6xl container mx-auto sm:px-6 lg:px-8">
             <form
                 method="POST"
                 action="{{ route('dashboard.banners.update', $banner->id) }}"
-                class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4 md:p-8 grid gap-4"
+                class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4 md:p-6 grid gap-4"
                 enctype="multipart/form-data"
             >
                 @csrf @method('PUT') @include('admin.banners.form')

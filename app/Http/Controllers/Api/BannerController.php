@@ -16,7 +16,10 @@ class BannerController extends Controller
     public function getBanners($page)
     {
         $banners = Banner::query()
-            ->select('id')
+            ->select([
+                'id',
+                'link',
+            ])
             ->where('status', 1)
             ->where('page', $page)
             ->orderBy('position')

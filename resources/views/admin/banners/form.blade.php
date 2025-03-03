@@ -65,4 +65,21 @@
         <div class="text-red-500 mt-1">{{ $message }}</div>
         @enderror
     </div>
+
+    <!-- Link -->
+    <div class="col-span-full">
+        <label for="link" class="block text-sm font-medium text-gray-700">
+            Link
+        </label>
+        <input 
+            type="url"
+            id="link"
+            name="link"
+            value="{{ old('link') ?? $banner->link }}" 
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md"
+        />
+        @error('link')
+        <div class="text-red-500 mt-1">{{ $message }}</div>
+        @enderror
+    </div>
 </div>

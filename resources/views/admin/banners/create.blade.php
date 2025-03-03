@@ -14,7 +14,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="container sm:px-6 lg:px-8">
+        <div class="max-w-6xl container sm:px-6 lg:px-8">
             <form
                 method="POST"
                 action="{{ route('dashboard.banners.store') }}"

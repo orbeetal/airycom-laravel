@@ -19,4 +19,9 @@ class Banner extends Model
     ];
 
     protected $guarded = [];
+
+    public function getLinkAttribute($value): string
+    {
+        return $value ?? '';
+    }
 }
