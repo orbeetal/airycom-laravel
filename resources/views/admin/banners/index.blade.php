@@ -41,7 +41,7 @@
                                 <x-image-preview 
                                     :src="route('banners.streamImage', $banner->id)"
                                     width="w-60 md:w-96"
-                                    ratio="aspect-[4/1]"
+                                    ratio="aspect-[16/5]"
                                 />
                             </td>
                             <td class="text-center">

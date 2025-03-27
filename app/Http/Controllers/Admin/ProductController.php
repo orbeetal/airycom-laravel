@@ -54,7 +54,7 @@ class ProductController extends Controller
 
         $product = Product::create(
             $this->getValidatedData($request)
-            + $this->getPhotoData($request)
+            + $this->getPhotosData($request)
             + $this->getSpecificationData($request)
         );
 
@@ -106,7 +106,7 @@ class ProductController extends Controller
 
         $product->update(
             $this->getValidatedData($request, $product->id) 
-            + $this->getPhotoData($request, $product->photos)
+            + $this->getPhotosData($request, $product->photos)
             + $this->getSpecificationData($request, $product->specifications)
         );
 
@@ -140,7 +140,7 @@ class ProductController extends Controller
         ]);
     }
 
-    protected function getPhotoData($request, $photos = [])
+    protected function getPhotosData($request, $photos = [])
     {
         if(!$request->hasFile('photos')) {
             return [];  

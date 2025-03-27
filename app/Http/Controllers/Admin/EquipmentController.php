@@ -54,7 +54,7 @@ class EquipmentController extends Controller
 
         $equipment = Equipment::create(
             $this->getValidatedData($request)
-            + $this->getPhotoData($request)
+            + $this->getPhotosData($request)
             + $this->getSpecificationData($request)
         );
 
@@ -104,7 +104,7 @@ class EquipmentController extends Controller
 
         $equipment->update(
             $this->getValidatedData($request, $equipment->id) 
-            + $this->getPhotoData($request, $equipment->photos)
+            + $this->getPhotosData($request, $equipment->photos)
             + $this->getSpecificationData($request, $equipment->specifications)
         );
 
@@ -135,7 +135,7 @@ class EquipmentController extends Controller
         ]);
     }
 
-    protected function getPhotoData($request, $photos = [])
+    protected function getPhotosData($request, $photos = [])
     {
         if(!$request->hasFile('photos')) {
             return [];  

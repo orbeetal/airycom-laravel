@@ -44,7 +44,7 @@ class BannerController extends Controller
     {
         $banner = Banner::create(
             $this->getValidatedData($request)
-            + $this->getPhotoData($request, 1920, 480)
+            + $this->getPhotoData($request, 1920, 600)
         );
 
         return to_route('dashboard.banners.show', $banner->id);
@@ -79,7 +79,7 @@ class BannerController extends Controller
     {
         $banner->update(
             $this->getValidatedData($request, $banner->id)
-            + $this->getPhotoData($request, 1920, 480)
+            + $this->getPhotoData($request, 1920, 600)
         );
 
         return to_route('dashboard.banners.show', $banner->id);
