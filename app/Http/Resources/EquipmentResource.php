@@ -18,7 +18,7 @@ class EquipmentResource extends JsonResource
             // "id"            => $this->id,
             "slug"          => $this->slug,
             "name"          => $this->name,
-            "photo"         => route('equipment.photo.stream', [$this->id, 1]),
+            "photo"         => route('equipment.photo.stream', [$this->id, 1]) . "?v=" . ($banner->updated_at->timestamp ?? time()),
             'keywords'      => $this->whenHas('keywords', $this->keywords ?? ''),
             "description"   => $this->whenHas('description', $this->description ?? ""),
             // "price"         => $this->price ?? "",

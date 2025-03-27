@@ -247,7 +247,7 @@ class ProductController extends Controller
             $imageData = base64_decode($base64String);
 
             return response($imageData, 200)
-                ->header('Content-Type', 'image/jpeg');
+                ->header('Content-Type', 'image/webp');
         }
 
         return abort(404);

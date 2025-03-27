@@ -19,6 +19,7 @@ class BannerController extends Controller
             ->select([
                 'id',
                 'link',
+                'updated_at',
             ])
             ->where('status', 1)
             ->where('page', $page)
@@ -26,7 +27,7 @@ class BannerController extends Controller
             ->get();
 
         $banners->each(function ($banner) {
-            $banner->image = route('banners.streamImage', $banner->id);
+            $banner->image = route('banners.streamImage', $banner->id) . "?v=" . ($banner->updated_at->timestamp ?? time());
         });
 
         return response()->json($banners);

@@ -60,14 +60,13 @@ Route::prefix('v1')->group(function () {
     Route::get('/latest/products', [ProductController::class, 'latestProducts']);
     Route::get('/random/products', [ProductController::class, 'randomProducts']);
     Route::get('/{category}/products', [ProductController::class, 'categoryProducts']);
-    Route::get('/products/{id}/photos/{serial?}.jpeg', [ProductController::class, 'streamPhoto'])->name('product.photo.stream');
+    Route::get('/products/{id}/photos/{serial?}.webp', [ProductController::class, 'streamPhoto'])->name('product.photo.stream');
     
     Route::get('/equipments', [EquipmentController::class, 'index']);
     Route::get('/equipments/{slug}', [EquipmentController::class, 'show']);
     Route::get('/latest/equipments', [EquipmentController::class, 'latestEquipments']);
     Route::get('/{category}/equipments', [EquipmentController::class, 'categoryEquipments']);
-    Route::get('/equipments/{id}/photos/{serial?}.jpeg', [EquipmentController::class, 'streamPhoto'])->name('equipment.photo.stream');
-    Route::get('/products/{id}/photos/{serial?}.jpeg', [ProductController::class, 'streamPhoto'])->name('product.photo.stream');
+    Route::get('/equipments/{id}/photos/{serial?}.webp', [EquipmentController::class, 'streamPhoto'])->name('equipment.photo.stream');
 
     Route::get('/blogs', [BlogController::class, 'index']);
     Route::get('/blogs/{slug}', [BlogController::class, 'show']);
