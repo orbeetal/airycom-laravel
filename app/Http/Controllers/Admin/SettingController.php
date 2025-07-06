@@ -8,12 +8,31 @@ use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
-    public function form()
+    public function index()
     {
-        // return
-        $settings = Setting::pluck('value', 'property')->toArray();
+        return view('admin.settings.index');
+    }
 
-        return view('admin.settings.form', compact('settings'));
+    public function form($criteria)
+    {
+        // return $criteria;
+
+        if(!array_key_exists($criteria, Setting::CRITERIA)) {
+            return abort(404);
+        }
+
+        // return
+        $settings = $this->getSettings($criteria);
+
+        return view('admin.settings.' . $criteria, compact('settings'));
+    }
+
+    protected function getSettings($criteria)
+    {
+        return Setting::query()
+            ->whereIn('property', Setting::CRITERIA[$criteria] ?? [])
+            ->pluck('value', 'property')
+            ->toArray();
     }
 
     public function save(Request $request)

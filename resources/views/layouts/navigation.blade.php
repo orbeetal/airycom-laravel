@@ -18,11 +18,14 @@
                     <x-nav-link :href="route('dashboard.products.index')" :active="request()->routeIs('dashboard.products.*')">
                         {{ __('Products') }}
                     </x-nav-link>
-                    <!-- <x-nav-link :href="route('dashboard.equipments.index')" :active="request()->routeIs('dashboard.equipments.*')">
-                        {{ __('Equipments') }}
-                    </x-nav-link> -->
-                    <x-nav-link :href="route('dashboard.blogs.index')" :active="request()->routeIs('dashboard.blogs.*')">
+                    <!-- <x-nav-link :href="route('dashboard.blogs.index')" :active="request()->routeIs('dashboard.blogs.*')">
                         {{ __('Blog') }}
+                    </x-nav-link> -->
+                    <!-- <x-nav-link :href="route('dashboard.banners.index')" :active="request()->routeIs('dashboard.banners.*')">
+                        {{ __('Banners') }}
+                    </x-nav-link> -->
+                    <x-nav-link :href="route('dashboard.settings.index')" :active="request()->routeIs('dashboard.settings.*')">
+                        {{ __('Settings') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -82,11 +85,14 @@
             <x-responsive-nav-link :href="route('dashboard.products.index')" :active="request()->routeIs('dashboard.products.*')">
                 {{ __('Products') }}
             </x-responsive-nav-link>
-            <!-- <x-responsive-nav-link :href="route('dashboard.equipments.index')" :active="request()->routeIs('dashboard.equipments.*')">
-                {{ __('Equipments') }}
-            </x-responsive-nav-link> -->
-            <x-responsive-nav-link :href="route('dashboard.blogs.index')" :active="request()->routeIs('dashboard.blogs.*')">
+            <!-- <x-responsive-nav-link :href="route('dashboard.blogs.index')" :active="request()->routeIs('dashboard.blogs.*')">
                 {{ __('Blog') }}
+            </x-responsive-nav-link> -->
+            <!-- <x-responsive-nav-link :href="route('dashboard.banners.index')" :active="request()->routeIs('dashboard.banners.*')">
+                {{ __('Banners') }}
+            </x-responsive-nav-link> -->
+            <x-responsive-nav-link :href="route('dashboard.settings.index')" :active="request()->routeIs('dashboard.settings.*')">
+                {{ __('Settings') }}
             </x-responsive-nav-link>
         </div>
 

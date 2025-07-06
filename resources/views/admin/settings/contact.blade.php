@@ -2,13 +2,13 @@
     <x-slot name="header">
         <div class="flex justify-between gap-2 items-center">
             <a
-                href="{{ url('/dashboard') }}"
+                href="{{ url('/dashboard/settings') }}"
                 class="cursor-pointer text-gray-600 hover:text-gray-900"
             >
-                &larr; Back to Dashboard
+                &larr; Back to Settings
             </a>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __("Settings Form") }}
+                {{ __("Contact Settings Form") }}
             </h2>
         </div>
     </x-slot>
@@ -113,7 +113,7 @@
 
                 <div class="flex justify-between gap-2 items-center">
                     <a
-                        href="{{ url('/dashboard') }}"
+                        href="{{ url('/dashboard/settings') }}"
                         class="cursor-pointer text-gray-600 hover:text-gray-900"
                     >
                         &larr; Back without save

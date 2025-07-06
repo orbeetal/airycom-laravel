@@ -30,8 +30,9 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::get('/', fn() => view('dashboard'))->name('dashboard');
 
     Route::name('dashboard.')->group(function () {
-        Route::get('/settings', [SettingController::class, 'form']);
-        Route::put('/settings', [SettingController::class, 'save']);
+        Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+        Route::get('/{criteria}/settings', [SettingController::class, 'form'])->name('settings.form');
+        Route::put('/settings', [SettingController::class, 'save'])->name('settings.save');
 
         Route::resource('/categories', CategoryController::class);
         Route::resource('/products', ProductController::class);
