@@ -112,7 +112,7 @@
         <button
             @click="addLink"
             class="p-2 rounded hover:bg-gray-200"
-            :class="!activeCommands.createLink ? 'bg-blue-200 text-blue-700' : ''"
+            :class="activeCommands.createLink ? 'bg-blue-200 text-blue-700' : ''"
             type="button"
             title="Insert Link"
         >
@@ -176,6 +176,10 @@
                 }
 
                 const url = prompt("Enter the URL:", href);
+
+                if (url === null) {
+                    return;
+                }
 
                 if (url && this.getSelectedText()) {
                     this.formatText("createLink", url);
