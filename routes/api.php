@@ -33,6 +33,8 @@ Route::prefix('v1')->group(function () {
             $ignore_routes = [
                 'product.photo.stream',
                 'equipment.photo.stream',
+                'banners.streamImage',
+                'settings.streamImage',
             ];
 
             if(
