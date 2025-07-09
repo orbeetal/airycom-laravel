@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Intervention\Image\Laravel\Facades\Image;
 
 class SettingController extends Controller
@@ -40,20 +41,22 @@ class SettingController extends Controller
     {
         // return $request;
 
-        foreach($request->settings as $property => $value) {
-            Setting::updateOrCreate(
-                [
-                    'property' => $property,
-                ],
-                [
-                    'value' => is_file($value)
-                        ? $this->getPhotoStringData($value, 5*60, 6*60)
-                        : $value,
-                ]
-            );
-        }
+        try {
+            foreach ($request->settings as $property => $value) {
+                Setting::updateOrCreate(
+                    ['property' => $property],
+                    [
+                        'value' => $value instanceof UploadedFile
+                            ? $this->getPhotoStringData($value, 5 * 60, 6 * 60)
+                            : $value,
+                    ]
+                );
+            }
 
-        return back()->with('message', 'Updated successfully!');
+            return back()->with('message', 'Updated successfully!');
+        } catch (\Throwable $e) {
+            return back()->withErrors($e->getMessage());
+        }
     }
 
     protected function getPhotoStringData($file, $width = 320, $height = 320): string
