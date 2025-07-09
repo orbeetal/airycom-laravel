@@ -8,7 +8,7 @@
                 &larr; Back to Settings
             </a>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __("Contact Settings Form") }}
+                {{ __("Service Section Settings Form") }}
             </h2>
         </div>
     </x-slot>
