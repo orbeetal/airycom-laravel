@@ -81,6 +81,9 @@ Route::prefix('v1')->group(function () {
         ->name('banners.streamImage');
 
     Route::get('/settings', [SettingController::class, 'index']);
+    Route::get('/settings/{property}/image.webp', [SettingController::class, 'streamImage'])->name('settings.streamImage');
+
     Route::get('/contact/settings', [SettingController::class, 'contact']);
     Route::get('/about/settings', [SettingController::class, 'about']);
+    Route::get('/product/settings', [SettingController::class, 'product']);
 });

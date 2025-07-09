@@ -40,4 +40,14 @@ class Setting extends Model
     ];
 
     protected $guarded = [];
+
+    public function getValueAttribute($value)
+    {
+        if ($value && strpos($value, 'data:image') === 0 && $this->property)
+        {
+            return route('settings.streamImage', $this->property) . "?v=" . (time() + 1);
+        }
+
+        return $value;
+    }
 }
