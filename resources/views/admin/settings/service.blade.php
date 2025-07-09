@@ -45,6 +45,9 @@
                     </div>
                     <!-- Image -->
                     <div class="lg:col-span-6">
+                        <div class="text-red-600 text-center">
+                            Width: <b>320px</b>, Height: <b>384px</b>
+                        </div>
                         <div class="flex items-center">
                             <label
                                 for="service_cleanroom_thumbnail"
@@ -78,7 +81,7 @@
                             Description:
                         </label>
                         <textarea
-                            rows="11"
+                            rows="12"
                             type="text"
                             id="service_cleanroom_description"
                             name="settings[service_cleanroom_description]"
@@ -105,6 +108,9 @@
                     </div>
                     <!-- Image -->
                     <div class="lg:col-span-6">
+                        <div class="text-red-600 text-center">
+                            Width: <b>320px</b>, Height: <b>384px</b>
+                        </div>
                         <div class="flex items-center">
                             <label
                                 for="service_hvac_thumbnail"
@@ -138,7 +144,7 @@
                             Description:
                         </label>
                         <textarea
-                            rows="11"
+                            rows="12"
                             type="text"
                             id="service_hvac_description"
                             name="settings[service_hvac_description]"

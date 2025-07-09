@@ -47,7 +47,7 @@ class SettingController extends Controller
                     ['property' => $property],
                     [
                         'value' => $value instanceof UploadedFile
-                            ? $this->getPhotoStringData($value, 5 * 60, 6 * 60)
+                            ? $this->getPhotoStringData($value, 5 * 64, 6 * 64)
                             : $value,
                     ]
                 );

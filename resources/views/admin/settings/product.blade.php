@@ -37,7 +37,9 @@
             >
                 @csrf @method('PUT')
 
-                <div class="grid gap-4 lg:grid-cols-12 p-4 border border-brand-secondary rounded">
+                <div
+                    class="grid gap-4 lg:grid-cols-12 p-4 border border-brand-secondary rounded"
+                >
                     <div
                         class="col-span-full text-center text-2xl text-brand-primary font-semibold border bg-gray-100 rounded-lg py-2"
                     >
@@ -45,6 +47,9 @@
                     </div>
                     <!-- Image -->
                     <div class="lg:col-span-6">
+                        <div class="text-red-600 text-center">
+                            Width: <b>320px</b>, Height: <b>384px</b>
+                        </div>
                         <div class="flex items-center">
                             <label
                                 for="product_cleanroom_thumbnail"
@@ -52,7 +57,11 @@
                             >
                                 <img
                                     id="imagePreviewCleanroom"
-                                    src="{{ $settings['product_cleanroom_thumbnail'] ?? '' }}"
+                                    src="{{
+                                        $settings[
+                                            'product_cleanroom_thumbnail'
+                                        ] ?? ''
+                                    }}"
                                     alt="Clreanroom Thumbnail"
                                     class="w-full aspect-[5/6] object-cover"
                                 />
@@ -78,7 +87,7 @@
                             Description:
                         </label>
                         <textarea
-                            rows="11"
+                            rows="12"
                             type="text"
                             id="product_cleanroom_description"
                             name="settings[product_cleanroom_description]"
@@ -97,7 +106,9 @@
                     </div>
                 </div>
 
-                <div class="grid gap-4 lg:grid-cols-12 p-4 border border-brand-secondary rounded">
+                <div
+                    class="grid gap-4 lg:grid-cols-12 p-4 border border-brand-secondary rounded"
+                >
                     <div
                         class="col-span-full text-center text-2xl text-brand-primary font-semibold border bg-gray-100 rounded-lg py-2"
                     >
@@ -105,6 +116,9 @@
                     </div>
                     <!-- Image -->
                     <div class="lg:col-span-6">
+                        <div class="text-red-600 text-center">
+                            Width: <b>320px</b>, Height: <b>384px</b>
+                        </div>
                         <div class="flex items-center">
                             <label
                                 for="product_hvac_thumbnail"
@@ -112,7 +126,10 @@
                             >
                                 <img
                                     id="imagePreviewHVAC"
-                                    src="{{ $settings['product_hvac_thumbnail'] ?? '' }}"
+                                    src="{{
+                                        $settings['product_hvac_thumbnail'] ??
+                                            ''
+                                    }}"
                                     alt="HVAC Thumbnail"
                                     class="w-full aspect-[5/6] object-cover"
                                 />
@@ -138,16 +155,14 @@
                             Description:
                         </label>
                         <textarea
-                            rows="11"
+                            rows="12"
                             type="text"
                             id="product_hvac_description"
                             name="settings[product_hvac_description]"
                             class="mt-1 p-2 w-full border border-gray-300 rounded-md"
                             >{{
                                 old("settings.product_hvac_description") ??
-                                    ($settings[
-                                        "product_hvac_description"
-                                    ] ??
+                                    ($settings["product_hvac_description"] ??
                                         "")
                             }}</textarea
                         >
@@ -157,7 +172,9 @@
                     </div>
                 </div>
 
-                <div class="grid gap-4 lg:grid-cols-12 p-4 border border-brand-secondary rounded">
+                <div
+                    class="grid gap-4 lg:grid-cols-12 p-4 border border-brand-secondary rounded"
+                >
                     <div
                         class="col-span-full text-center text-2xl text-brand-primary font-semibold border bg-gray-100 rounded-lg py-2"
                     >
@@ -165,6 +182,9 @@
                     </div>
                     <!-- Image -->
                     <div class="lg:col-span-6">
+                        <div class="text-red-600 text-center">
+                            Width: <b>320px</b>, Height: <b>384px</b>
+                        </div>
                         <div class="flex items-center">
                             <label
                                 for="product_air_filtration_thumbnail"
@@ -172,7 +192,11 @@
                             >
                                 <img
                                     id="imagePreviewAirFiltration"
-                                    src="{{ $settings['product_air_filtration_thumbnail'] ?? '' }}"
+                                    src="{{
+                                        $settings[
+                                            'product_air_filtration_thumbnail'
+                                        ] ?? ''
+                                    }}"
                                     alt="Air Filtration Thumbnail"
                                     class="w-full aspect-[5/6] object-cover"
                                 />
@@ -198,13 +222,15 @@
                             Description:
                         </label>
                         <textarea
-                            rows="11"
+                            rows="12"
                             type="text"
                             id="product_air_filtration_description"
                             name="settings[product_air_filtration_description]"
                             class="mt-1 p-2 w-full border border-gray-300 rounded-md"
                             >{{
-                                old("settings.product_air_filtration_description") ??
+                                old(
+                                    "settings.product_air_filtration_description"
+                                ) ??
                                     ($settings[
                                         "product_air_filtration_description"
                                     ] ??
