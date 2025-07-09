@@ -31,6 +31,12 @@ class Setting extends Model
             'product_air_filtration_thumbnail',
             'product_air_filtration_description',
         ],
+        'service' => [
+            'service_cleanroom_thumbnail',
+            'service_cleanroom_description',
+            'service_hvac_thumbnail',
+            'service_hvac_description',
+        ],
     ];
 
     protected $guarded = [];
