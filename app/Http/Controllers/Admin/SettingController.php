@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Intervention\Image\Laravel\Facades\Image;
 
 class SettingController extends Controller
 {
@@ -45,11 +46,26 @@ class SettingController extends Controller
                     'property' => $property,
                 ],
                 [
-                    'value' => $value,
+                    'value' => is_file($value)
+                        ? $this->getPhotoStringData($value, 5*60, 6*60)
+                        : $value,
                 ]
             );
         }
 
         return back()->with('message', 'Updated successfully!');
+    }
+
+    protected function getPhotoStringData($file, $width = 320, $height = 320): string
+    {
+        if(!is_file($file) || !$file->isValid()) {
+            return '';  
+        }
+
+        $image = Image::read($file);
+
+        $image = $image->cover($width, $height)->toWebp()->toDataUri();
+
+        return $image;
     }
 }

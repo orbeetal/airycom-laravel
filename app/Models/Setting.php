@@ -23,6 +23,14 @@ class Setting extends Model
             'company_mission',
             'company_offerings',
         ],
+        'product' => [
+            'product_cleanroom_thumbnail',
+            'product_cleanroom_description',
+            'product_hvac_thumbnail',
+            'product_hvac_description',
+            'product_air_filtration_thumbnail',
+            'product_air_filtration_description',
+        ],
     ];
 
     protected $guarded = [];
