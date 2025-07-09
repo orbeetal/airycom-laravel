@@ -86,4 +86,5 @@ Route::prefix('v1')->group(function () {
     Route::get('/contact/settings', [SettingController::class, 'contact']);
     Route::get('/about/settings', [SettingController::class, 'about']);
     Route::get('/product/settings', [SettingController::class, 'product']);
+    Route::get('/service/settings', [SettingController::class, 'service']);
 });

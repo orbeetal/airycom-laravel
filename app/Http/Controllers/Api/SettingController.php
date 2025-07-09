@@ -23,6 +23,11 @@ class SettingController extends Controller
         return $this->index('product');
     }
 
+    public function service()
+    {
+        return $this->index('service');
+    }
+
     public function index($criteria = 'contact')
     {
         // return $criteria;
