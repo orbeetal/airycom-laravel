@@ -1,6 +1,7 @@
 <div class="grid gap-4 lg:grid-cols-12">
     <!-- Image -->
     <div class="col-span-full">
+        <x-image-size-label width="1920" height="600" />
         <div class="flex items-center">
             <label
                 for="image"
